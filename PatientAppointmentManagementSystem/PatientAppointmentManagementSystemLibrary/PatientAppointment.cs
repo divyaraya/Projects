@@ -22,34 +22,46 @@ namespace PatientAppointmentManagementSystemLibrary
             AppointmentNotification += SendSMSNotification;
             AppointmentNotification += SendMailNotification;
 
-            Console.WriteLine("WELCOME TO REGISTRATION DESK \n");           
+            var flag = true;
+            while (flag)
+            {
+                Console.WriteLine("WELCOME TO REGISTRATION DESK \n");
 
-            Console.WriteLine("Add the patient details here");
-            Console.WriteLine("PatientID");
-            string patientID = Console.ReadLine();
-            Console.WriteLine("First Name");
-            string firstName = Console.ReadLine();
-            Console.WriteLine("Last Name");
-            string lastName = Console.ReadLine();
-            Console.WriteLine("Age");
-            int age = Int32.Parse(Console.ReadLine());
-            Console.WriteLine("Gender");
-            string gender = Console.ReadLine();
-            Console.WriteLine("Phone Number");
-            string phoneNo = Console.ReadLine();
-            Console.WriteLine("Address");
-            string address = Console.ReadLine();
-            Console.WriteLine("Health Problem (Ex: Fever, ENT, Cold, heart desease, Dental, Accident, Skin care, Cancer, Hair Loss");
-            string healthIssue = Console.ReadLine();
-            Console.WriteLine("Appointments will be given only for current month");
-            Console.WriteLine("Enter appointment date in yyyy, mm, dd format(In case of Emmergency enter today's date)");
-            DateTime expectedAppointmentDate = Convert.ToDateTime(Console.ReadLine());
-           
-            var department = SelectDepartment(healthIssue, age);            
-            var appointedDoctor = SelectDoctor(department, doctorList, expectedAppointmentDate);
+                Console.WriteLine("Add the patient details here");
+                Console.WriteLine("PatientID");
+                string patientID = Console.ReadLine();
+                Console.WriteLine("First Name");
+                string firstName = Console.ReadLine();
+                Console.WriteLine("Last Name");
+                string lastName = Console.ReadLine();
+                Console.WriteLine("Age");
+                int age = Int32.Parse(Console.ReadLine());
+                Console.WriteLine("Gender");
+                string gender = Console.ReadLine();
+                Console.WriteLine("Phone Number");
+                string phoneNo = Console.ReadLine();
+                Console.WriteLine("Address");
+                string address = Console.ReadLine();
+                Console.WriteLine("Health Problem (Ex: Fever, ENT, Cold, heart desease, Dental, Accident, Skin care, Cancer, Hair Loss");
+                string healthIssue = Console.ReadLine();
+                Console.WriteLine("Appointments will be given only for current month");
+                Console.WriteLine("Enter appointment date in yyyy, mm, dd format(In case of Emmergency enter today's date)");
+                DateTime expectedAppointmentDate = Convert.ToDateTime(Console.ReadLine());
 
-            patinetInfoList.Add(new PatientInfo(firstName, lastName, patientID, age, gender, address, phoneNo, healthIssue, expectedAppointmentDate, appointedDoctor.FirstName, department));
+                var department = SelectDepartment(healthIssue, age);
+                var appointedDoctor = SelectDoctor(department, doctorList, expectedAppointmentDate);
 
+                patinetInfoList.Add(new PatientInfo(firstName, lastName, patientID, age, gender, address, phoneNo, healthIssue, expectedAppointmentDate, appointedDoctor.FirstName, department));
+
+                Console.WriteLine("\n");
+                Console.WriteLine("Do you want to continue adding patients? (y/n)");
+                var result = Console.ReadLine();
+
+                if (result == "n")
+                {
+                    flag = false;
+                }
+            }
             DashBoardView dashBoardView = new DashBoardView();
             dashBoardView.DashboardView(patinetInfoList);
         }
@@ -75,13 +87,13 @@ namespace PatientAppointmentManagementSystemLibrary
         public void SendSMSNotification(object sender, DoctorInfo doctor)
         {
             Console.WriteLine("\n");
-            Console.WriteLine("Appioment has been made with Dr.{0}, SMS Notification send to doctor and patient", doctor.FirstName);
+            Console.WriteLine("Appointment has been made with Dr.{0}, SMS Notification send to doctor and patient", doctor.FirstName);
         }
 
         public void SendMailNotification(object sender, DoctorInfo doctor)
         {
             Console.WriteLine("\n");
-            Console.WriteLine("Appioment has been made with Dr.{0}, Mail Notification send to doctor and patient", doctor.FirstName);
+            Console.WriteLine("Appointment has been made with Dr.{0}, Mail Notification send to doctor and patient", doctor.FirstName);
         }
     }
 }

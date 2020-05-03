@@ -33,7 +33,7 @@ namespace PatientAppointmentManagementSystemLibrary
                     if (appointmentList.Count <= 0)
                     {
                         Console.WriteLine("\n");
-                        Console.WriteLine("No appointments for the date: {0}", date);
+                        Console.WriteLine("No appointments for the date: {0}", date.ToString("d"));
                     }
 
                     Console.WriteLine("\n");
